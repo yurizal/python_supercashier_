@@ -105,7 +105,7 @@ class Transaksi:
       > jika tidak ada/tidak sesuai akan gagal
       > jika ketik back akan kembali ke menu 
     """
-    def tambah(self):
+    def add_item(self):
         while True:
             print(f"- Ketik {Color.RED}BACK{Color.END} jika ingin kembali")
             print(f"- Ketik {Color.YELLOW}nama item{Color.END} jika ingin mengupdate jumlah item")
@@ -187,15 +187,18 @@ class Transaksi:
     delete_item function untuk menghapus per item, berdasarkan nama item yang diinputkan
     """
     def delete_item(self,nama_item):
+        temp = ""
         self.nama_item = nama_item
         pesan = input("Yakin mau hapus data (Yes=y, No=press any key) ?").upper()
         if pesan == "Y":
             for k,v in list(Transaksi._order.items()):
                 if k == self.nama_item:
-                    del Transaksi._order[k]
-                    return f"\n{Color.YELLOW}Item sudah dihapus{Color.END}\n"
-                else:
-                    return(f"Item {self.nama_item} tidak ada atau sudah dihapus, silahkan diperiksa kembali")
+                    temp= k
+            if temp != "":
+                del Transaksi._order[temp]
+                return f"\n{Color.YELLOW}Item sudah dihapus{Color.END}\n"
+            else:
+                return(f"Item {self.nama_item} tidak ada atau sudah dihapus, silahkan diperiksa kembali")
         else:
             return "Silahkan Pilih : "
 
@@ -221,7 +224,7 @@ class Transaksi:
             pilih = input("Masukkan opsi (1/2/3) : ")
             print("\n")
             if pilih == "1":
-                self.tambah()
+                self.add_item()
             elif pilih == "2":
                 self.check_order()
             elif pilih == "3":
